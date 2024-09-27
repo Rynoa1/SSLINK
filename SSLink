@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Link Pokémon Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Soul Link Pokémon Tracker</h1>
+
+    <table id="pokemonTable">
+        <thead>
+            <tr>
+                <th>Route/Area</th>
+                <th>Player 1 Pokémon</th>
+                <th>Player 1 Type</th>
+                <th>Player 2 Pokémon</th>
+                <th>Player 2 Type</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be added dynamically -->
+        </tbody>
+    </table>
+
+    <h2>Add a New Pokémon Pair</h2>
+
+    <form id="pokemonForm">
+        <label for="route">Route/Area:</label>
+        <input type="text" id="route" name="route" placeholder="e.g., Route 1" required><br><br>
+
+        <label for="player1Pokemon">Player 1 Pokémon:</label>
+        <input type="text" id="player1Pokemon" name="player1Pokemon" placeholder="e.g., Charmander" required><br><br>
+
+        <label for="player1Type">Player 1 Type:</label>
+        <input type="text" id="player1Type" name="player1Type" placeholder="e.g., Fire" required><br><br>
+
+        <label for="player2Pokemon">Player 2 Pokémon:</label>
+        <input type="text" id="player2Pokemon" name="player2Pokemon" placeholder="e.g., Squirtle" required><br><br>
+
+        <label for="player2Type">Player 2 Type:</label>
+        <input type="text" id="player2Type" name="player2Type" placeholder="e.g., Water" required><br><br>
+
+        <button type="submit">Add Pair</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('pokemonForm');
+        const table = document.getElementById('pokemonTable').getElementsByTagName('tbody')[0];
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get the form values
+            const route = document.getElementById('route').value;
+            const player1Pokemon = document.getElementById('player1Pokemon').value;
+            const player1Type = document.getElementById('player1Type').value;
+            const player2Pokemon = document.getElementById('player2Pokemon').value;
+            const player2Type = document.getElementById('player2Type').value;
+
+            // Create a new row
+            const newRow = table.insertRow();
+
+            // Insert cells into the new row
+            const routeCell = newRow.insertCell(0);
+            const player1PokemonCell = newRow.insertCell(1);
+            const player1TypeCell = newRow.insertCell(2);
+            const player2PokemonCell = newRow.insertCell(3);
+            const player2TypeCell = newRow.insertCell(4);
+            const statusCell = newRow.insertCell(5);
+
+            // Fill the cells with the form data
+            routeCell.innerText = route;
+            player1PokemonCell.innerText = player1Pokemon;
+            player1TypeCell.innerText = player1Type;
+            player2PokemonCell.innerText = player2Pokemon;
+            player2TypeCell.innerText = player2Type;
+
+            // Add a default "Alive" status, with the option to change
+            const statusSelect = document.createElement('select');
+            const aliveOption = document.createElement('option');
+            aliveOption.value = 'alive';
+            aliveOption.text = 'Alive';
+            const deadOption = document.createElement('option');
+            deadOption.value = 'dead';
+            deadOption.text = 'Dead';
+            statusSelect.add(aliveOption);
+            statusSelect.add(deadOption);
+            statusCell.appendChild(statusSelect);
+
+            // Clear the form for the next entry
+            form.reset();
+        });
+    </script>
+
+</body>
+</html>
